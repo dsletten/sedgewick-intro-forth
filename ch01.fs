@@ -35,6 +35,17 @@
 
 : ?valid ( r -- f ) f0> ;
 
+: checkXY ( x y -- f )
+    fswap ?valid if ?valid if true
+                           else ." Bad y" false then
+                 else ." Bad x" fdrop false then ;
+
+: checkXYZ ( x y z -- f ) 
+    frot ?valid if fswap ?valid if ?valid if true
+                                          else ." Bad z" false then
+                                else ." Bad y" fdrop false then
+                else ." Bad x" fdrop fdrop false then ;
+             
 : compoundInterest'   ( p r t -- a )
     fswap
     100e f/ ( Convert rate to % )
